@@ -39,7 +39,7 @@ The `FileManagementController` manages file encryption, storage, and retrieval u
 
 - Required fields: `file`, `user`, `directory`.
 
-### stream by ulid
+### Stream a File by ULID
 
 ```php
 $ulid = '0a739052-ce80-4ae6-a276-34524eec43b1'; // Example ID
