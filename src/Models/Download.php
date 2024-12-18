@@ -11,7 +11,7 @@ class Download extends Model
 
      use HasFactory;
 
-    protected $fillable = ['file', 'ulid'];
+    protected $fillable = ['file', 'ulid','minetype'];
 
     public function downloadable()
     {

@@ -3,7 +3,13 @@
 namespace Codersgarden\FileEncrypte\Controller;
 
 use App\Http\Controllers\Controller;
-use Codersgarden\encrept\Models\Download;
+use Codersgarden\FileEncrypte\Models\Download;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 
 class FileManagementController extends Controller
 {
@@ -27,15 +33,26 @@ class FileManagementController extends Controller
         return $imageName;
     }
     public function stream($ulid)
-    {
+    {  
+
+        if (!$request->hasValidSignature()) {
+            abort(403, 'Invalid or expired download link.');
+        }
+
+        
         $download = Download::where('ulid', $ulid)->first();
+
         if (!$download) {
             return abort(404);
         }
+        $path = $download->file;
 
+ 
         $file = Crypt::decrypt(Storage::disk('local')->get($path));
+       
         $filename = basename($download->file);
 
+      
         return response()->stream(function () use ($file) {
             echo $file;
         }, 200, [
@@ -45,26 +62,19 @@ class FileManagementController extends Controller
     }
 
 
-    public function getDownloadPath(Request $request)
+    public function getDownloadPath($ulid)
     {
         try {
-            $download = Download::where('ulid', $request->ulid)->first();
+            $download = Download::where('ulid', $ulid)->first();
 
             if (!$download) {
-                return response()->json([
-                    'status' => false,
-                    'message' => trans('messages.download.not_found')
-                ]);
+                 return false;
             }
-            return response()->json([
-                'status' => true,
-                'path' => $this->getDownloadURL($download->ulid)
-            ]);
+            return  $this->getDownloadURL($download->ulid);
+        
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage()
-            ]);
+             Log::info($e->getMessage());
+             return false;
         }
     }
 
