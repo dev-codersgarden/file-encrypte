@@ -8,8 +8,7 @@ The `FileEncrypted` manages file encryption, storage, and retrieval using Larave
 
 1. [Using the File Encryption Package](#using-the-file-encrypted-package)
 2. [Save a File](#save-a-file)
-3. [Stream a File by ULID](#stream-a-file-by-ulid)
-4. [Get Download Path by ULID](#getDownloadPath-by-ulid)
+3. [Get Download Path by ULID](#getDownloadPath-by-ulid)
 
 ---
 
@@ -33,9 +32,9 @@ To use the FileEncrypted package, start by adding the following method to the mo
         $user = new User();
         $user->name = 'anc';
         $user->email = 'abc@example.com';
-        $user->password = bcrypt('password'); 
+        $user->password = bcrypt('password');
 
-        //$user means Model name 
+        //$user means Model name
 
          $file = $request->file('file');
         $filemanagement = new FileManagementController();
@@ -55,19 +54,6 @@ To use the FileEncrypted package, start by adding the following method to the mo
 **Description:**
 
 - Required fields: `file`, `user`, `directory`.
-
-### Stream a File by ULID
-
-```php
-$ulid = '0a739052-ce80-4ae6-a276-34524eec43b1'; // Example ID
-$response = $FileManagementController->stream($ulid);
-```
-
-**Description:**
-
-- Streams a file using the specified ULID.
-
----
 
 ### Get Download Path by ULID
 
@@ -126,18 +112,14 @@ class FileManagementController extends Controller
         $user->file = $savedFileName;
          $user->save();
 
-
-
-        // 2. stream file using ulid
-        $ulid = 'dba9418a-2381-48cd-afa3-81c0c1d0e53e';
-        $response = $this->filemanagement->stream($ulid);
-        dd($response);
-
         // 3. getDownloadPath
 
-           $ulid = 'dba9418a-2381-48cd-afa3-81c0c1d0e53e';
+        $ulid = 'dba9418a-2381-48cd-afa3-81c0c1d0e53e';
         $response = $this->filemanagement->getDownloadPath($ulid);
         dd($response);
+
+
+        //Redirect to the response URL to stream a file.
 
     }
 
