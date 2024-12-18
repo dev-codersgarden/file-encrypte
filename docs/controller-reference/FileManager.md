@@ -1,6 +1,6 @@
 # FileManagementController Documentation
 
-The `FileManagementController` manages file encryption, storage, and retrieval using Laravel's file storage system and encryption utilities.
+The `FileEncrypted` manages file encryption, storage, and retrieval using Laravel's file storage system and encryption utilities.
 
 ---
 
@@ -11,14 +11,31 @@ The `FileManagementController` manages file encryption, storage, and retrieval u
 3. [Stream a File by ULID](#stream-a-file-by-ulid)
 4. [Get Download Path by ULID](#getDownloadPath-by-ulid)
 
+---
+
+## Using the FileEncrypted Package
+
+To use the FileEncrypted package, start by adding the following method to the model(Ex: User Model):
+
+```php
+ public function downloadable()
+{
+    return $this->morphOne(Download::class, 'downloadable');
+}
+```
+
+---
+
 ### save a file
 
 ```php
 
         $user = new User();
-        $user->name = 'Admin';
-        $user->email = 'admin2@yopmail.com';
-        $user->password = bcrypt('password');
+        $user->name = 'anc';
+        $user->email = 'abc@example.com';
+        $user->password = bcrypt('password'); 
+
+        //$user means Model name 
 
          $file = $request->file('file');
         $filemanagement = new FileManagementController();
@@ -87,7 +104,7 @@ class FileManagementController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
         // 1. save a file
 
