@@ -20,7 +20,7 @@
    "extra": {
         "laravel": {
             "providers": [
-               "Codersgarden\\FileEncrypt\\FileEncrypteServiceProvider"
+               "Codersgarden\\FileEncrypt\\FileEncryptServiceProvider"
             ]
         }
     },
