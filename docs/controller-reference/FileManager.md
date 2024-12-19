@@ -18,7 +18,7 @@ To use the FileEncrypted package, start by adding the following method to the mo
 
 ```php
 
-use Codersgarden\FileEncrypte\Models\Download;
+use Codersgarden\FileEncrypt\Models\Download;
 
  public function downloadable()
 {
