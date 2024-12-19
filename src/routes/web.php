@@ -1,6 +1,6 @@
 <?php
 
-use Codersgarden\FileEncrypte\Controller\FileManagementController;
+use Codersgarden\FileEncrypt\Controller\FileManagementController;
 use Illuminate\Support\Facades\Route;
 
 

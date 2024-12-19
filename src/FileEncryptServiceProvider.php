@@ -1,10 +1,10 @@
 <?php 
 
-namespace Codersgarden\FileEncrypte;
+namespace Codersgarden\FileEncrypt;
 
 use Illuminate\Support\ServiceProvider;
 
-class FileEncrypteServiceProvider extends ServiceProvider
+class FileEncryptServiceProvider extends ServiceProvider
 {
     public function boot()
     {

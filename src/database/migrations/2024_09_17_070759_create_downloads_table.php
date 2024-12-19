@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->ulid(); 
             $table->string("file")->nullable();
-            $table->string("minetype")->nullable();
+            $table->string("mimetype")->nullable();
             $table->morphs('downloadable');
             $table->timestamps();
         });

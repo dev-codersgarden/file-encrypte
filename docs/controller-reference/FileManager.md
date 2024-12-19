@@ -19,6 +19,7 @@ The `FileManagementController` manages file encryption, storage, and retrieval u
         $user->name = 'Admin';
         $user->email = 'admin2@yopmail.com';
         $user->password = bcrypt('password');
+        $user->save();
 
          $file = $request->file('file');
         $filemanagement = new FileManagementController();
@@ -39,23 +40,12 @@ The `FileManagementController` manages file encryption, storage, and retrieval u
 
 - Required fields: `file`, `user`, `directory`.
 
-### Stream a File by ULID
-
-```php
-$ulid = '0a739052-ce80-4ae6-a276-34524eec43b1'; // Example ID
-$response = $FileManagementController->stream($ulid);
-```
-
-**Description:**
-
-- Streams a file using the specified ULID.
-
----
 
 ### Get Download Path by ULID
 
 ```php
-$ulid = '0a739052-ce80-4ae6-a276-34524eec43b1'; // Example ID
+$ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB'; 
+// Example ID
 $response = $FileManagementController->getDownloadPath($ulid);
 ```
 
@@ -72,10 +62,10 @@ Below is a complete example demonstrating how to use the `FileManagementControll
 ```php
 <?php
 
-namespace Codersgarden\FileEncrypte\Controller;
+namespace Codersgarden\FileEncrypt\Controller;
 
 use App\Http\Controllers\Controller;
-use Codersgarden\FileEncrypte\Models\Download;
+use Codersgarden\FileEncrypt\Models\Download;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -110,15 +100,9 @@ class FileManagementController extends Controller
          $user->save();
 
 
+        // 2. getDownloadPath
 
-        // 2. stream file using ulid
-        $ulid = 'dba9418a-2381-48cd-afa3-81c0c1d0e53e';
-        $response = $this->filemanagement->stream($ulid);
-        dd($response);
-
-        // 3. getDownloadPath
-
-           $ulid = 'dba9418a-2381-48cd-afa3-81c0c1d0e53e';
+           $ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB';
         $response = $this->filemanagement->getDownloadPath($ulid);
         dd($response);
 

@@ -14,7 +14,7 @@ composer require codersgarden/fileencrypte:dev-main
 ```php
 'providers' => [
     // Other service providers...
-    Codersgarden\FileEncrypte\FileEncrypteServiceProvider::class
+    Codersgarden\FileEncrypt\FileEncryptServiceProvider::class
 ];
 ```
 

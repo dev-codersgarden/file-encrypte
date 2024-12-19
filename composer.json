@@ -1,5 +1,5 @@
 {
-    "name": "codersgarden/fileencrypte",
+    "name": "codersgarden/fileencrypt",
     "description": "This is File Encrypted Package",
     "type": "library",
     "license": "MIt",
@@ -12,9 +12,17 @@
     ],
     "autoload": {
         "psr-4": {
-            "Codersgarden\\FileEncrypte\\": "src/"
+            "Codersgarden\\FileEncrypt\\": "src/"
         }
         
+    },
+
+   "extra": {
+        "laravel": {
+            "providers": [
+               "Codersgarden\\FileEncrypt\\FileEncrypteServiceProvider"
+            ]
+        }
     },
     "require": {}
 }

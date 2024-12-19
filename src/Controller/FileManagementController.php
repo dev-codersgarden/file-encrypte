@@ -1,9 +1,9 @@
 <?php
 
-namespace Codersgarden\FileEncrypte\Controller;
+namespace Codersgarden\FileEncrypt\Controller;
 
 use App\Http\Controllers\Controller;
-use Codersgarden\FileEncrypte\Models\Download;
+use Codersgarden\FileEncrypt\Models\Download;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -32,7 +32,7 @@ class FileManagementController extends Controller
 
         return $imageName;
     }
-    public function stream($ulid)
+    public function stream(Request $request, $ulid)
     {  
 
         if (!$request->hasValidSignature()) {
