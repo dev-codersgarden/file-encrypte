@@ -17,6 +17,9 @@ The `FileEncrypted` manages file encryption, storage, and retrieval using Larave
 To use the FileEncrypted package, start by adding the following method to the model(Ex: User Model):
 
 ```php
+
+use Codersgarden\FileEncrypte\Models\Download;
+
  public function downloadable()
 {
     return $this->morphOne(Download::class, 'downloadable');
