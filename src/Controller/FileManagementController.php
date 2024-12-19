@@ -27,7 +27,7 @@ class FileManagementController extends Controller
         $model->downloadable()->create([
             'ulid' => Str::ulid(),
             'file' => $filePath,
-            'minetype' => $file->getClientOriginalExtension(),
+            'mimetype' => $file->getClientOriginalExtension(),
         ]);
 
         return $imageName;
