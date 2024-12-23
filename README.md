@@ -25,7 +25,7 @@ Welcome to the **File Encrypte Laravel Package Documentation**.This package prov
 ### Controller Refrence
 
 
-- [Getting Started](docs/controller-refrence/FileMager.md)  
+- [Getting Started](docs/controller-refrence/FileManager.md)  
   Step-by-step instructions on how to use the controller for file management.
 ---
 
