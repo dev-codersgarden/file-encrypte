@@ -13,12 +13,7 @@ Welcome to the **File Encrypte Laravel Package Documentation**.This package prov
 
 ---
 
-## Documentation Index
-
 # Getting Started
-
-## Description
-This Laravel package provides file encryption and management features, allowing you to securely store, retrieve, and serve encrypted files. It supports temporary signed download URLs for secure file access.
 
 ## Installation
 
@@ -26,13 +21,6 @@ You can install the package via Composer:
 
 ```bash
 composer require codersgarden/fileencrypte:dev-main
-```
-
-```php
-'providers' => [
-    // Other service providers...
-    Codersgarden\FileEncrypt\FileEncryptServiceProvider::class
-];
 ```
 
 ## Requirements
@@ -51,12 +39,120 @@ composer require codersgarden/fileencrypte:dev-main
 
 ---
 
-### Controller Reference
+# FileManagementController Documentation
 
+The `FileEncrypted` manages file encryption, storage, and retrieval using Laravel's file storage system and encryption utilities.
 
-- [Getting Started](docs/controller-reference/FileManager.md)  
-  Step-by-step instructions on how to use the controller for file management.
 ---
+
+## Table of Contents
+
+1. [Using the File Encryption Package](#using-the-file-encrypted-package)
+2. [Save a File](#save-a-file)
+3. [Get Download Path by ULID](#getDownloadPath-by-ulid)
+
+---
+
+## Using the FileEncrypted Package
+
+To use the FileEncrypted package, start by adding the following method to the model(Ex: User Model):
+
+```php
+
+use Codersgarden\FileEncrypt\Models\Download;
+
+ public function downloadable()
+{
+    return $this->morphOne(Download::class, 'downloadable');
+}
+```
+
+---
+
+### save a file
+
+```php
+  $filemanagement = new FileManagementController();
+
+        // Define the directory where the file will be saved
+        $directory = 'uploads/files/'; // Customize the directory as needed
+
+        // Call the save method
+        $savedFileName = $filemanagement->save($file, $user, $directory);
+
+        // Optionally store the file name or other info in the user model
+        $user->file = $savedFileName;
+         $user->save();
+
+```
+
+**Description:**
+
+- Required fields: `file`, `user`, `directory`.
+
+### Get Download Path by ULID
+
+```php
+$ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB'; 
+$response = $FileManagementController->getDownloadPath($ulid);
+```
+
+**Description:**
+
+- Retrieves the download path of a file using the specified ULID.
+
+---
+
+## Example Usage in a Controller
+
+Below is a complete example demonstrating how to use the `FileManagementController` class within a Laravel.
+
+```php
+<?php
+namespace Codersgarden\FileEncrypt\Controller;
+
+use App\Http\Controllers\Controller;
+use Codersgarden\FileEncrypt\Models\Download;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
+
+class FileManagementController extends Controller
+{
+    public function index(Request $request)
+    {
+        // 1. save a file
+
+         $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'admin2@yopmail.com';
+        $user->password = bcrypt('password');
+
+         $file = $request->file('file');
+        $filemanagement = new FileManagementController();
+
+        // Define the directory where the file will be saved
+        $directory = 'uploads/files/'; // Customize the directory as needed
+
+        // Call the save method
+        $savedFileName = $filemanagement->save($file, $user, $directory);
+
+        // Optionally store the file name or other info in the user model
+        $user->file = $savedFileName;
+         $user->save();
+
+
+        // 2. getDownloadPath
+
+          $ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB';
+        $response = $this->filemanagement->getDownloadPath($ulid);
+        dd($response);
+    }
+}
+```
 
 ## Contribution Guide
 
