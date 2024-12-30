@@ -2,14 +2,11 @@
 
 Welcome to the **File Encrypte Laravel Package Documentation**.This package provides encryption for file data to ensure its security and privacy.
 
----
-
 ## Features
 
 - Seamless integration with Laravel for file encryption
-- Ability to encrypt and decrypt files with ease.   
 - Full support for encryption and decryption operations.
-- Simple and structured error handling for file encryption.
+- Handles file storage and retrieval using Laravel's file storage system.
 
 ---
 
@@ -43,8 +40,6 @@ composer require codersgarden/fileencrypte:dev-main
 
 The `FileEncrypted` manages file encryption, storage, and retrieval using Laravel's file storage system and encryption utilities.
 
----
-
 ## Using the FileEncrypted Package
 
 To use the FileEncrypted package, start by adding the following method to the model(Ex: User Model):
@@ -67,13 +62,13 @@ use Codersgarden\FileEncrypt\Models\Download;
 ```php
 $fileManagement = new FileManagementController();
 
-// Define the directory where the file will be saved
 $directory = 'uploads/files/'; // Customize the directory as needed
-// Call the save method
 $savedFileName = $fileManagement->save($file, $user, $directory);
 ```
 
 This function will return the file path, so you can store it in your database.
+
+One thing to note is that this function will store the file in the storage folder with encryption, and you will not be able to see it in the public folder.
 
 ---
 
@@ -83,14 +78,14 @@ This function will return the file path, so you can store it in your database.
 
 you can get this ulid using relationship in model ex: `$user->downloadable->ulid`
 
-than call this method in controller
+than call this method in controller 
 
 ```php
 $fileManagement = new FileManagementController();
-
-$ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB'; 
 $response = $fileManagement->getDownloadPath($ulid);
 ```
+
+This will return the URL to stream or download the file, which will expire after 5 minutes.
 
 ---
 
