@@ -45,20 +45,11 @@ The `FileEncrypted` manages file encryption, storage, and retrieval using Larave
 
 ---
 
-## Table of Contents
-
-1. [Using the File Encryption Package](#using-the-file-encrypted-package)
-2. [Save a File](#save-a-file)
-3. [Get Download Path by ULID](#getDownloadPath-by-ulid)
-
----
-
 ## Using the FileEncrypted Package
 
 To use the FileEncrypted package, start by adding the following method to the model(Ex: User Model):
 
 ```php
-
 use Codersgarden\FileEncrypt\Models\Download;
 
  public function downloadable()
@@ -69,90 +60,39 @@ use Codersgarden\FileEncrypt\Models\Download;
 
 ---
 
-### save a file
+**Save a File:**
+
+- Required fields: `file`, `model`, `path-to-directory`.
 
 ```php
-  $filemanagement = new FileManagementController();
+$fileManagement = new FileManagementController();
 
-        // Define the directory where the file will be saved
-        $directory = 'uploads/files/'; // Customize the directory as needed
-
-        // Call the save method
-        $savedFileName = $filemanagement->save($file, $user, $directory);
-
-        // Optionally store the file name or other info in the user model
-        $user->file = $savedFileName;
-         $user->save();
-
+// Define the directory where the file will be saved
+$directory = 'uploads/files/'; // Customize the directory as needed
+// Call the save method
+$savedFileName = $fileManagement->save($file, $user, $directory);
 ```
 
-**Description:**
-
-- Required fields: `file`, `user`, `directory`.
-
-### Get Download Path by ULID
-
-```php
-$ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB'; 
-$response = $FileManagementController->getDownloadPath($ulid);
-```
-
-**Description:**
-
-- Retrieves the download path of a file using the specified ULID.
+This function will return the file path, so you can store it in your database.
 
 ---
 
-## Example Usage in a Controller
+**Get Download Path:**
 
-Below is a complete example demonstrating how to use the `FileManagementController` class within a Laravel.
+- Required fields: `download-ulid`.
+
+you can get this ulid using relationship in model ex: `$user->downloadable->ulid`
+
+than call this method in controller
 
 ```php
-<?php
-namespace Codersgarden\FileEncrypt\Controller;
+$fileManagement = new FileManagementController();
 
-use App\Http\Controllers\Controller;
-use Codersgarden\FileEncrypt\Models\Download;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
-
-class FileManagementController extends Controller
-{
-    public function index(Request $request)
-    {
-        // 1. save a file
-
-         $user = new User();
-        $user->name = 'Admin';
-        $user->email = 'admin2@yopmail.com';
-        $user->password = bcrypt('password');
-
-         $file = $request->file('file');
-        $filemanagement = new FileManagementController();
-
-        // Define the directory where the file will be saved
-        $directory = 'uploads/files/'; // Customize the directory as needed
-
-        // Call the save method
-        $savedFileName = $filemanagement->save($file, $user, $directory);
-
-        // Optionally store the file name or other info in the user model
-        $user->file = $savedFileName;
-         $user->save();
-
-
-        // 2. getDownloadPath
-
-          $ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB';
-        $response = $this->filemanagement->getDownloadPath($ulid);
-        dd($response);
-    }
-}
+$ulid = '01JEDM0EMWTEBGH1V7A9RM3QBB'; 
+$response = $fileManagement->getDownloadPath($ulid);
 ```
+
+---
 
 ## Contribution Guide
 
