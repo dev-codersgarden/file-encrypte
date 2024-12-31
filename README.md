@@ -109,6 +109,6 @@ This package is licensed under the MIT License. See the [LICENSE](LICENSE.md) fi
 
 ## Contact Us
 
-For support or inquiries, feel free to contact us via [email](mailto:support@codersgarden.com) or create an issue on our GitHub repository.
+For support or inquiries, feel free to contact us via [email](mailto:support@codersgarden.de) or create an issue on our GitHub repository.
 
 ---
